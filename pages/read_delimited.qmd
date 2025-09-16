@@ -6,5 +6,61 @@ editor_options:
   chunk_output_type: inline
 ---
 
+```{r}
+library(tidyverse)
+```
 
-Answers go here!
+## Glass Data Set
+
+*Reading the glass data set and assigning column names*
+
+```{r}
+glass <- read.csv(
+  "https://www4.stat.ncsu.edu/online/datasets/glass.data",
+  col.names = c("Id", "RI", "Na", "Mg", "Al", "Si", "K", "Ca", "Ba", "Fe", "Type")
+)
+```
+
+```{r}
+glass_subset <- glass |>
+  mutate(
+    Type =  ifelse(Type == 1, "building_windows_float_processed",
+            ifelse(Type == 2, "building_windows_non_float_processed",
+            ifelse(Type == 3, "vehicle_windows_float_processed",
+            ifelse(Type == 4, "vehicle_windows_non_float_processed",
+            ifelse(Type == 5, "containers",
+            ifelse(Type == 6, "tableware",
+            ifelse(Type == 7, "headlamps", NA_character_)))))))
+) |>
+filter (Fe < 0.2, Type %in% c("tableware", "headlamps")
+)
+glass_subset
+
+```
+
+## Yeast Data Set
+
+**Reading the glass data set, dropping non numeric columns, and finding mean/median of each numeric colums (grouping by class)*
+```{r}
+yeast <- read.table(
+  "https://www4.stat.ncsu.edu/online/datasets/yeast.data",
+  col.names = c("seq_name", "mcg", "gvh", "alm", "mit", "erl", "pox", "vac", "nuc",
+                "class")
+)
+yeast
+
+yeast_updated <- yeast |>
+  select( -seq_name, -nuc) |>
+  group_by(class) |>
+  mutate(
+    across(
+      c(mcg, gvh, alm, mit, erl, pox, vac),
+        list(
+          mean = mean,
+          median = median),
+          .names = "{.col}_{.fn}")
+  )
+
+yeast_updated
+```
+

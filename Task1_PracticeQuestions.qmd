@@ -1,9 +1,6 @@
 ---
-title: "Conceptual Questions"
-format: html
-toc: TRUE
-editor_options: 
-  chunk_output_type: inline
+title: "Task 1: Practice Questions"
+editor: visual
 ---
 
 ```{r}
