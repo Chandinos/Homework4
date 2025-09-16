@@ -12,9 +12,10 @@ library(readxl)
 library(readr)
 ```
 
-##White Wine Data Set
+## White Wine Data Set
 
 *Reading in white wine data and manipulating it so 2nd page names are used to identify first page of data. Adding a column to designate these observations as "white" wine.*
+
 ```{r}
 white_wine <- read_excel(
   "white-wine.xlsx",
@@ -38,6 +39,7 @@ white_wine
 ```
 
 *Reading in red wine data set and manipulating the same way we did the white wine data set except these will be designated as type = "red"*
+
 ```{r}
 red_wine <- read_delim(
   "red-wine.csv",
@@ -54,7 +56,8 @@ red_wine
 
 ```
 
-*Combining the two data sets. Filtering to only look at high quality wines (quality > 0.5) that have a reasonable alcohol content (alcohol < 132)*
+*Combining the two data sets. Filtering to only look at high quality wines (quality \> 0.5) that have a reasonable alcohol content (alcohol \< 132)*
+
 ```{r}
 all_wines <- bind_rows(white_wine, red_wine)
 
@@ -70,4 +73,3 @@ hq_wine <- all_wines |>
 
 hq_wine
 ```
-
